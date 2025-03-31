@@ -1,8 +1,12 @@
 import express from 'express';
 import routes from './routers/routes';
+import * as dotenv from 'dotenv';
+
+// Carga las variables de entorno definidas en el archivo .env
+dotenv.config();
 
 const app = express();
-const port = 3000;
+const port = 2424;
 
 // Middleware para parsear JSON
 app.use(express.json());
