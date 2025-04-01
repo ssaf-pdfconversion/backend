@@ -16,5 +16,5 @@ app.use('/', routes);
 
 // Iniciar el servidor
 app.listen(port, () => {
-  console.log(`Servidor corriendo en http://localhost:${port}`);
+  console.log(`Servidor corriendo en http://${process.env.APP_HOST}:${process.env.APP_PORT}`);
 });
