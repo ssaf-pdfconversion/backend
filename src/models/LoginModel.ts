@@ -1,40 +1,104 @@
-import * as soap from 'soap';
+
 import { SOAPSResponse } from './interfaces/SOAPSResponse';
-import http from 'http';
+import soaprequest from 'easy-soap-request';
+import { parseString } from 'xml2js';
+import { SOAPBResponse }  from './interfaces/SOAPBResponse';
 
-export async function loginUser<T>(username: string, password: string): Promise<SOAPSResponse> {
+export class SOAPClient {
+  private  url: string;
+  private headers: any;
+  
+  constructor(host: string = process.env.SOAP_HOST || 'localhost', port: string = process.env.SOAP_PORT || '80') {
+    this.url = `http://${host}:${port}/appserver?wsdl`;
+    this.headers = {
+        'Content-Type': 'text/xml;charset=UTF-8',
+        // The SOAPAction header may need to match what your SOAP service expects.
+        // Here we're setting it to "login", but adjust as needed.
+        'SOAPAction': 'login'
+      };
+  }
+
+  public async loginUser(username: string, password: string): Promise<SOAPSResponse> {
+    try {
+        const xml = `
+            <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:int="http://interfaces.domain.app.upb.edu.co/">
+            <soapenv:Header/>
+            <soapenv:Body>
+                <int:login>
+                    <username>${username}</username>
+                    <password>${password}</password>
+                </int:login>
+            </soapenv:Body>
+            </soapenv:Envelope>
+        `;
+
+        const { response } = await soaprequest({
+            url: this.url,
+            headers: this.headers,
+            xml,
+            timeout: 5000 // Optional timeout in milliseconds
+        });
+        const { body, statusCode } = response;
+        //console.log('Status Code:', statusCode);
+        //console.log('Response Body:', body);
     
-    try{
-        const url =`http://${process.env.SOAP_HOST}:${process.env.SOAP_PORT}/appserver?wsdl`;
-        console.log("Si entro al modelo de login");
-        console.log(url);
-        const agent = new http.Agent({ keepAlive: false });
-
-        const options = {
-            wsdl_options: {
-              timeout: 50000,             // Timeout in milliseconds
-              strictSSL: false,          // Disable strict SSL validation
-              rejectUnauthorized: false,
-              agent // Allow self-signed certificates
-            },
-          };
-        const client = await soap.createClientAsync(url, options);
-        const args = { username, password };
-        
-        const result = await client.login(args);
-
-        const response = new SOAPSResponse(
-            result.success,
-            result.message,
-            result.content,
-            result.timestamp
-        )
-
-    console.log(result.message);
-    return response;
-    }catch(error){
-        console.error('Error en la llamada SOAP:', error);
-        return new SOAPSResponse(false, 'Error en login', '', new Date().toISOString());
+        // Optionally, parse the XML response to a JavaScript object using xml2js
+        return new Promise((resolve, reject) => {
+          parseString(body, { explicitArray: false }, (err, result) => {
+            if (err) {
+              reject(err);
+            } else {
+              //console.log('Parsed XML:', result);
+              //console.log(result['S:Envelope']['S:Body']['ns2:loginResponse']['return']);
+              const resultado = result['S:Envelope']['S:Body']['ns2:loginResponse']['return'];
+              resolve(resultado);
+            }
+          });
+        });
+    } catch (error) {
+      console.error('Error en la llamada SOAP:', error);
+      return new SOAPSResponse(false, 'Error en login', '', new Date().toISOString());
     }
-      
+  }
+
+
+  public async validate(token: string): Promise<SOAPBResponse> {
+    try {
+        const xml = `
+            <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:int="http://interfaces.domain.app.upb.edu.co/">
+            <soapenv:Header/>
+            <soapenv:Body>
+                <int:validate>
+                    <jwt>${token}</jwt>
+                </int:validate>
+            </soapenv:Body>
+            </soapenv:Envelope>
+        `;
+
+        const { response } = await soaprequest({
+            url: this.url,
+            headers: this.headers,
+            xml,
+            timeout: 5000 // Optional timeout in milliseconds
+        });
+        const { body } = response;
+4748
+        // Optionally, parse the XML response to a JavaScript object using xml2js
+        return new Promise((resolve, reject) => {
+          parseString(body, { explicitArray: false }, (err, result) => {
+            if (err) {
+              reject(err);
+            } else {
+                const hola = result['S:Envelope']['S:Body']['ns2:validateResponse']['return'];
+                console.log(hola);
+              resolve(hola);
+            }
+          });
+        });
+    } catch (error) {
+      console.error('Error en la llamada SOAP:', error);
+      return new SOAPBResponse(false, 'Error en validate', false, new Date().toISOString());
+    }
+  }
+
 }

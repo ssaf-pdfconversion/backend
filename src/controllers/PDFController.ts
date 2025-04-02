@@ -1,12 +1,14 @@
 import { Request, Response } from "express";
-import { convertOfficeToPDF, convertURLToPDF } from "../models/PDFModel";
+import { convertOfficeToPDF, convertURLToPDF, SOAPClientPDF } from "../models/PDFModel";
 
 
 class PDFController {
 
     public async officeConvert(req: Request, res: Response) {
         const files = req.body.files;
-        const result = await convertOfficeToPDF(files);
+        const soapClient = new SOAPClientPDF();
+        const result = await soapClient.convertOfficeToPDF(files);
+        console.log(result);
         if (result) {
             res.status(200).json({ message: 'Archivos convertidos a PDF' });
         } else {
@@ -25,3 +27,12 @@ class PDFController {
     }
 }
 export default new PDFController();
+
+
+
+
+
+
+
+
+

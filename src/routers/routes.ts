@@ -13,6 +13,7 @@ router.post('/login', LoginController.login);
 router.post('/officeConvert',  PDFController.officeConvert);
 router.post('/urlConvert',  PDFController.urlConvert);
 router.post('/metrics', MetricsController.metrics);
+router.post('/validate', LoginController.validate);
 export default router;
 
 
