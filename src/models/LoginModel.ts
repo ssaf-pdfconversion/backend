@@ -32,15 +32,18 @@ export class SOAPClient {
             </soapenv:Envelope>
         `;
 
+
         const { response } = await soaprequest({
             url: this.url,
             headers: this.headers,
             xml,
             timeout: 5000 // Optional timeout in milliseconds
         });
+
+       
         const { body, statusCode } = response;
-        //console.log('Status Code:', statusCode);
-        //console.log('Response Body:', body);
+        console.log('Status Code:', statusCode);
+        console.log('Response Body:', body);
     
         // Optionally, parse the XML response to a JavaScript object using xml2js
         return new Promise((resolve, reject) => {
@@ -48,9 +51,10 @@ export class SOAPClient {
             if (err) {
               reject(err);
             } else {
-              //console.log('Parsed XML:', result);
+              console.log('Parsed XML:', result);
               //console.log(result['S:Envelope']['S:Body']['ns2:loginResponse']['return']);
               const resultado = result['S:Envelope']['S:Body']['ns2:loginResponse']['return'];
+              console.log(resultado);
               resolve(resultado);
             }
           });
@@ -82,7 +86,6 @@ export class SOAPClient {
             timeout: 5000 // Optional timeout in milliseconds
         });
         const { body } = response;
-4748
         // Optionally, parse the XML response to a JavaScript object using xml2js
         return new Promise((resolve, reject) => {
           parseString(body, { explicitArray: false }, (err, result) => {

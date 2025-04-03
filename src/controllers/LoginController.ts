@@ -8,7 +8,7 @@ class LoginController {
         console.log("Si entro al controller de login");
         const soapClient = new SOAPClient();
         const result = await soapClient.loginUser(username, password);
-        console.log(result);
+        console.log("rta  "+result);
         if (result.success) {
             res.status(200).json({ 
                 message: 'Usuario autenticado' , 
@@ -18,7 +18,7 @@ class LoginController {
 
             console.log("El app-server respondio lo siguiente:" + result.message + " A las " + result.timestamp);
         } else {
-            res.status(401).json({ message: 'Usuario no autenticado' });
+            res.status(401).json({ message: 'Este es un mensaje de prueba' });
         }
     }
 
@@ -28,9 +28,9 @@ class LoginController {
         const soapClient = new SOAPClient();
         const result = await soapClient.validate(token);
         if (result.success) {
-            res.status(200).json({ message: 'Token valido' });
+            res.status(200).json({ message: 'Esto es un mensaje de prueba' });
         } else {
-            res.status(401).json({ message: 'Token no valido' });
+            res.status(200).json({ message: 'Esto es un mensaje de prueba' });
         }
     }
 }

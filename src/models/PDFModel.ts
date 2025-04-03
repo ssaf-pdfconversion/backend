@@ -51,6 +51,7 @@ export class SOAPClientPDF {
                 timeout: 5000 // Optional timeout in milliseconds
             });
             const { body, statusCode } = response;
+            console.log(response);
 
             return new Promise((resolve, reject) => {
                 parseString(body, { explicitArray: false }, (err, result) => {
@@ -59,9 +60,9 @@ export class SOAPClientPDF {
                   } else {
                     //console.log('Parsed XML:', result);
                     //console.log(result['S:Envelope']['S:Body']['ns2:loginResponse']['return']);
-                   // const resultado = result['S:Envelope']['S:Body']['ns2:loginResponse']['return'];
-                   console.log(result);
-                    resolve(result);
+                   const resultado = result['S:Envelope']['S:Body']['ns2:getOfficeConversionResponse']['return'];
+                   
+                    resolve(resultado);
                   }
                 });
               });
