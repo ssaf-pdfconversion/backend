@@ -1,14 +1,15 @@
 import { Request, Response } from 'express';
-import { SOAPClient } from '../models/LoginModel';
+import { SOAPClient } from '../models/model/LoginModel';
 
 class LoginController {
 
     public async login(req: Request, res: Response) {
+
         const { username, password } = req.body;
         console.log("Si entro al controller de login");
         const soapClient = new SOAPClient();
         const result = await soapClient.loginUser(username, password);
-        console.log("rta  "+result);
+       
         if (result.success) {
             res.status(200).json({ 
                 message: 'Usuario autenticado' , 

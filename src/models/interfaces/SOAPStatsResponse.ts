@@ -1,5 +1,5 @@
 import { SOAPResponse } from "./SOAPResponse";
-import { Statistics } from '../Statistics';
+import { Statistics } from '../model/Statistics';
 
 export class SOAPStatsResponse extends SOAPResponse<Statistics> {
     constructor(

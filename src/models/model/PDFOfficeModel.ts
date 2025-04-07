@@ -1,15 +1,6 @@
 import soaprequest from 'easy-soap-request';
 import { parseString } from 'xml2js';
-import { SOAPASResponse } from './interfaces/SOAPASResponse';
-import fs from 'fs';
-
-export async function convertOfficeToPDF(files: string[]): Promise<boolean> {
-    return true;
-}
-export async function convertURLToPDF(urls: string[]): Promise<boolean> {
-    return true;
-}
-
+import { SOAPASResponse } from '../interfaces/SOAPASResponse';
 
 export class SOAPClientPDF {
     private  url: string;
@@ -19,8 +10,6 @@ export class SOAPClientPDF {
       this.url = `http://${host}:${port}/appserver?wsdl`;
       this.headers = {
           'Content-Type': 'text/xml;charset=UTF-8',
-          // The SOAPAction header may need to match what your SOAP service expects.
-          // Here we're setting it to "login", but adjust as needed.
           'SOAPAction': 'getOfficeConversion'
         };
     }
@@ -58,10 +47,7 @@ export class SOAPClientPDF {
                   if (err) {
                     reject(err);
                   } else {
-                    //console.log('Parsed XML:', result);
-                    //console.log(result['S:Envelope']['S:Body']['ns2:loginResponse']['return']);
-                   const resultado = result['S:Envelope']['S:Body']['ns2:getOfficeConversionResponse']['return'];
-                   
+                    const resultado = result['S:Envelope']['S:Body']['ns2:getOfficeConversionResponse']['return'];
                     resolve(resultado);
                   }
                 });

@@ -1,6 +1,6 @@
 import {Router} from 'express';
 import LoginController from '../controllers/LoginController';
-//import {authenticateToken} from '../autheticateMiddleware';
+import RegisterController from '../controllers/RegisterController';
 import PDFController from '../controllers/PDFController';
 import MetricsController from '../controllers/MetricsController';
 
@@ -10,8 +10,9 @@ router.get('/', (req, res) => {
   });
 
 router.post('/login', LoginController.login);
+router.post('/register', RegisterController.register);
 router.post('/officeConvert',  PDFController.officeConvert);
-router.post('/urlConvert',  PDFController.urlConvert);
+//router.post('/urlConvert',  PDFController.urlConvert);
 router.post('/metrics', MetricsController.metrics);
 router.post('/validate', LoginController.validate);
 export default router;
