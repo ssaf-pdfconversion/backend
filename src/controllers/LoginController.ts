@@ -24,16 +24,7 @@ class LoginController {
     }
 
 
-    public async validate(req: Request, res: Response) {
-        const { token } = req.body;
-        const soapClient = new SOAPClient();
-        const result = await soapClient.validate(token);
-        if (result.success) {
-            res.status(200).json({ message: 'Esto es un mensaje de prueba' });
-        } else {
-            res.status(200).json({ message: 'Esto es un mensaje de prueba' });
-        }
-    }
+    
 }
 
 export default new LoginController();

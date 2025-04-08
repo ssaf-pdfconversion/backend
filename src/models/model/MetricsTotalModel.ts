@@ -1,11 +1,10 @@
-import { SOAPStatsResponse } from '../interfaces/SOAPStatsResponse';
+import { SOAPDResponse } from '../interfaces/SOAPDResponse';
 import { SOAPClient } from '../interfaces/SOAPClient';
 import soaprequest from 'easy-soap-request';
 import { parseString } from 'xml2js';
 
-export async function getTotalConversion(userID: number): Promise<SOAPStatsResponse> {
+export async function getTotalConversion(userID: number): Promise<SOAPDResponse> {
     try{
-
         const xml = `<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:int="http://interfaces.domain.app.upb.edu.co/">
             <soapenv:Header/>
             <soapenv:Body>
@@ -30,17 +29,24 @@ export async function getTotalConversion(userID: number): Promise<SOAPStatsRespo
             parseString(body, { explicitArray: false }, (err, result) => {
                 if (err) {
                     reject(err);
+                    console.log("Error en la llamada SOAP:", err);
                 } else {
-                    const resultado = result['S:Envelope']['S:Body']['ns2:getTotalConversion']['return'];
+                    const resultado = result['S:Envelope']['S:Body']['ns2:getTotalConversionResponse']['return'];
                     resolve(resultado);
                 }
             });
         });
+        
+       /*
+        const response = new SOAPDResponse(true, 'ok', 1500, new Date().toISOString());
+        console.log(response);
+        return response;
+        */
 
     }
     catch (error){
         console.error('Error en la llamada SOAP:', error);
-              return new SOAPStatsResponse(false, 'Error a obtener el total de conversion', [], new Date().toISOString());
+              return new SOAPDResponse(false, 'Error a obtener el total de conversion', 0, new Date().toISOString());
 
     }
 }
