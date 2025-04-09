@@ -1,9 +1,9 @@
 import {Router} from 'express';
-import LoginController from '../controllers/LoginController';
 import RegisterController from '../controllers/RegisterController';
 import PDFController from '../controllers/PDFController';
 import MetricsController from '../controllers/MetricsController';
 import Authenticate from '../controllers/autheticate';
+import LoginController from '../controllers/LoginController';
 
 const router = Router();
 router.get('/', (req, res) => {
