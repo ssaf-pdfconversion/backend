@@ -3,7 +3,7 @@ import soaprequest from 'easy-soap-request';
 import { parseString } from 'xml2js';
 import { SOAPClient } from "../interfaces/SOAPClient";
 
-export async function register(username: string,
+export async function registerUser(username: string,
     password: string, 
     nombre: string, 
     apellido: string, 
