@@ -11,11 +11,11 @@ router.get('/', (req, res) => {
   });
 
 router.post('/login', LoginController.login);
-router.post('/register', RegisterController.register);
 router.post('/officeConvert',  PDFController.officeConvert);
 router.post('/urlConvert', PDFController.urlConvert);
 router.post('/total', MetricsController.metricsTotal);
 router.post('/statistics', Authenticate.validate ,MetricsController.getStatistics);
+router.post('/register', RegisterController.register);
 
 export default router;
 
