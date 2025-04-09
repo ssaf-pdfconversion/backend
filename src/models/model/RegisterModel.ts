@@ -26,7 +26,7 @@ export async function registerUser(username: string,
         const soapClient = new SOAPClient("register");
     
         
-        
+        /*
         const { response } = await soaprequest({
             url: soapClient.getURL(),
             headers: soapClient.getHeaders(),
@@ -52,7 +52,7 @@ export async function registerUser(username: string,
          
         const response = new SOAPSResponse(true, 'ok', 'asdfghjj', new Date().toISOString());
         return response;
-           */ 
+        
 
     }
     catch (error){
