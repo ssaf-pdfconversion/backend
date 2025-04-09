@@ -50,8 +50,8 @@ export async function register(username: string,
             });
           */  
             
-            const response = new SOAPSResponse(true, 'ok', 'asdfghjj', new Date().toISOString());
-            return response;
+        const response = new SOAPSResponse(true, 'ok', 'asdfghjj', new Date().toISOString());
+        return response;
             
 
     }

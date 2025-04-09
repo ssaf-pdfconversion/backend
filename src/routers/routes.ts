@@ -10,12 +10,8 @@ router.get('/', (req, res) => {
     res.send('¡Hola desde la ruta principal!');
   });
 
-router.post('backend/register', (req, res) => {
-    console.log('Ruta /register llamada');
-    res.send('Ruta /register funcionando');
-});
-  
-//router.post('/register', RegisterController.register);
+
+router.post('/reg', RegisterController.register);
 router.post('/login', LoginController.login);
 router.post('/officeConvert',  PDFController.officeConvert);
 router.post('/urlConvert', PDFController.urlConvert);

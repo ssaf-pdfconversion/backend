@@ -6,6 +6,7 @@ class RegisterController {
     public async register(req: Request, res: Response){
 
         const {username, password, nombre, apellido, email} = req.body;
+        console.log('Si entro al regsiter yayyys')
 
         const result = await register(username, password, nombre, apellido, email);
         if (result.success) {
