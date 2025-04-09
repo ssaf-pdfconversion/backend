@@ -13,6 +13,7 @@ class PDFController {
                 message: 'Archivos convertidos a PDF' ,
                 pdfs: result.content,
                 timestamp: result.timestamp});
+                console.log("El app-server respondio lo siguiente:" + result.message + " A las " + result.timestamp);
         } else {
             res.status(400).json({ message: 'Error al convertir archivos a PDF' });
         }

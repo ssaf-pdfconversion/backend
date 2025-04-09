@@ -3,6 +3,7 @@ import LoginController from '../controllers/LoginController';
 import RegisterController from '../controllers/RegisterController';
 import PDFController from '../controllers/PDFController';
 import MetricsController from '../controllers/MetricsController';
+import Authenticate from '../controllers/autheticate';
 
 const router = Router();
 router.get('/', (req, res) => {
@@ -14,8 +15,8 @@ router.post('/register', RegisterController.register);
 router.post('/officeConvert',  PDFController.officeConvert);
 router.post('/urlConvert', PDFController.urlConvert);
 router.post('/total', MetricsController.metricsTotal);
-router.post('/statistics', MetricsController.getStatistics);
-router.post('/validate', LoginController.validate);
+router.post('/statistics', Authenticate.validate ,MetricsController.getStatistics);
+
 export default router;
 
 

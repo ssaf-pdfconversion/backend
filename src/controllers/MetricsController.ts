@@ -29,6 +29,7 @@ class MetricsController {
                 message: 'Métricas obtenidas' ,
                 data: result.content,
                 timestamp: result.timestamp,});
+            console.log("El app-server respondio lo siguiente:" + result.message + " A las " + result.timestamp);
         } else {
             res.status(400).json({ message: 'Error al obtener métricas' });
         }
