@@ -10,7 +10,7 @@ router.get('/', (req, res) => {
     res.send('¡Hola desde la ruta principal!');
   });
 
-router.post('/register', (req, res) => {
+router.post('backend/register', (req, res) => {
     console.log('Ruta /register llamada');
     res.send('Ruta /register funcionando');
 });
