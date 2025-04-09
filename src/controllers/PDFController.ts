@@ -20,9 +20,10 @@ class PDFController {
     }
 
     public async urlConvert(req: Request, res: Response) {
+        console.log("Si entro al controller de urlConvert");
         const urls = req.body.urls;
         console.log(urls);
-        console.log("Si entro al controller de urlConvert");
+        
         
         const result = await convertUrlToPDF(urls);
         console.log(result);
@@ -33,8 +34,9 @@ class PDFController {
                 timestamp: result.timestamp});
             console.log("El app-server respondio lo siguiente:" + result.message + " A las " + result.timestamp);
         } else {
-            res.status(400).json({ message: 'Error al convertir archivo a PDF' });
             console.log("El app-server no  respondio, pero el backend si " + Date.now());
+            res.status(400).json({ message: 'Error al convertir archivo a PDF' });
+            
         }
     }
 
