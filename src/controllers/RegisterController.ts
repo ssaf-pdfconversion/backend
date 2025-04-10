@@ -23,7 +23,7 @@ class RegisterController {
 
     }
 
-    public async register(req: Request, res: Response){
+    public async register(req: Request, res: Response): Promise<Response> {
         console.log('Si entro al regsiter yayyys')
         return res.status(200).json({
             message: 'Usuario registrado correctamente'
