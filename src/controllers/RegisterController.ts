@@ -3,7 +3,8 @@ import { registerUser } from '../models/model/RegisterModel'
 
 class RegisterController {
 
-    public async register(req: Request, res: Response){
+    
+    public async registerdos(req: Request, res: Response){
 
         const {username, password, nombre, apellido, email} = req.body;
         console.log('Si entro al regsiter yayyys')
@@ -20,6 +21,13 @@ class RegisterController {
             res.status(401).json({ message: 'Error al registrar el usuario' });
         }
 
+    }
+
+    public async register(req: Request, res: Response){
+        console.log('Si entro al regsiter yayyys')
+        return res.status(200).json({
+            message: 'Usuario registrado correctamente'
+        });
     }
 
 }

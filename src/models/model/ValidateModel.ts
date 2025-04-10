@@ -41,6 +41,7 @@ export async function validate(token: string): Promise<SOAPBResponse> {
         console.log("Entro a validate del modelo");
         const response = new SOAPBResponse(true, 'Usuario autenticado', true, new Date().toISOString());
         return response;
+        
     } catch (error) {
         console.error('Error en la llamada SOAP:', error);
         return new SOAPBResponse(false, 'Error en validate', false, new Date().toISOString());
