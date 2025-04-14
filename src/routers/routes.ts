@@ -11,7 +11,10 @@ router.get('/', (req, res) => {
   });
 
 
-router.post('/reg', RegisterController.register);
+router.post('/reg', async (req, res) => {
+  res.send('¡Hola desde la ruta de registro!');
+});
+
 router.post('/login', LoginController.login);
 router.post('/officeConvert',  PDFController.officeConvert);
 router.post('/urlConvert', PDFController.urlConvert);

@@ -2,6 +2,8 @@ import { parseString } from 'xml2js';
 import soaprequest from 'easy-soap-request';
 import { SOAPBResponse } from '../interfaces/SOAPBResponse';
 import { SOAPClient } from '../interfaces/SOAPClient';
+
+
 export async function validate(token: string): Promise<SOAPBResponse> {
     try {
         const xml = `
