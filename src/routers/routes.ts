@@ -10,7 +10,7 @@ router.get('/', (req, res) => {
     res.send('¡Hola desde la ruta principal!');
   });
 
-  router.post('/user', (req, res) => {
+router.post('/user', (req, res) => {
     res.send('¡Hola desde la ruta de registro!');
   });
 
