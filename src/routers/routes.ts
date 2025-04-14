@@ -10,10 +10,10 @@ router.get('/', (req, res) => {
     res.send('¡Hola desde la ruta principal!');
   });
 
+  router.post('/user', (req, res) => {
+    res.send('¡Hola desde la ruta de registro!');
+  });
 
-router.post('/reg', async (req, res) => {
-  res.send('¡Hola desde la ruta de registro!');
-});
 
 router.post('/login', LoginController.login);
 router.post('/officeConvert',  PDFController.officeConvert);
