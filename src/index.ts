@@ -18,6 +18,8 @@ app.use((req, res, next) => {
 });
 // Ruta principal
 app.use('/', routes);
+app.use('/user', routes);
+
 
 // Iniciar el servidor
 app.listen(port, () => {
