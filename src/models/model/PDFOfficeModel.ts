@@ -1,6 +1,7 @@
 import soaprequest from 'easy-soap-request';
 import { parseString } from 'xml2js';
 import { SOAPASResponse } from '../interfaces/SOAPASResponse';
+import { base64array } from './base64';
 import { SOAPClient } from '../interfaces/SOAPClient';
 
 
@@ -22,6 +23,7 @@ export async function convertOfficeToPDF(files: string[]): Promise<SOAPASRespons
             </soapenv:Body>
             </soapenv:Envelope>`;
 
+    /*
     const soapClient = new SOAPClient('getOfficeConversion');
 
     const { response } = await soaprequest({
@@ -44,6 +46,9 @@ export async function convertOfficeToPDF(files: string[]): Promise<SOAPASRespons
         }
       });
     });
+    */
+    const response = new SOAPASResponse(true, 'ok', base64array, new Date().toISOString());
+    return response;
 
   }
   catch (error) {

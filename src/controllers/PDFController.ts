@@ -20,11 +20,9 @@ class PDFController {
     }
 
     public async urlConvert(req: Request, res: Response) {
-        console.log("Si entro al controller de urlConvert");
         const urls = req.body.urls;
-        console.log(urls);
-        
-        
+        console.log("Si entro al controller de urlConvert");
+    
         const result = await convertUrlToPDF(urls);
         console.log(result);
         if (result.success) {

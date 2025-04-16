@@ -2,6 +2,7 @@
 import { SOAPSResponse } from '../interfaces/SOAPSResponse';
 import soaprequest from 'easy-soap-request';
 import { parseString } from 'xml2js';
+import jwt from 'jsonwebtoken';
 
 export class SOAPClient {
   private  url: string;
@@ -29,7 +30,7 @@ export class SOAPClient {
             </soapenv:Envelope>
         `;
 
-
+        /*
         const { response } = await soaprequest({
             url: this.url,
             headers: this.headers,
@@ -53,12 +54,30 @@ export class SOAPClient {
             }
           });
         });
+        */
+
+      const token = this.Token(username);
+      const response = new SOAPSResponse(true, 'Usuario autenticado', token, new Date().toISOString());
+      return response;
 
     } catch (error) {
       console.error('Error en la llamada SOAP:', error);
       return new SOAPSResponse(false, 'Error en login', '', new Date().toISOString());
     }
   }
+
+  public Token(username: string){
+
+    const payload = {
+        userId: 1,
+        username: username,
+        role: 'admin'
+    }
+    const secretKey = 'aaaaaaaakkkkkkkkkssssssssssssss'; // Cambia esto por tu clave secreta
+    const token = jwt.sign(payload, secretKey, { expiresIn: '1h' }); 
+    return token
+
+}
 
 
 }
