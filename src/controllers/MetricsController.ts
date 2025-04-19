@@ -23,6 +23,8 @@ class MetricsController {
         const startDate = req.body.startDate;
         const endDate = req.body.endDate;
         const fileTypeId = req.body.fileTypeId;
+
+        console.log("El app-server recibio lo siguiente: " + userId + " " + startDate + " " + endDate + " " + fileTypeId);
         const result = await getStatistics(userId, startDate, endDate, fileTypeId);
         if (result.success) {
             res.status(200).json({ 
