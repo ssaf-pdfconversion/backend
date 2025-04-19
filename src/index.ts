@@ -9,7 +9,9 @@ const app = express();
 const port = 2424;
 
 // Middleware para parsear JSON
-app.use(express.json());
+app.use(express.json({limit: '50mb'})); // Aumenta el límite de tamaño del cuerpo a 50 MB
+app.use(express.urlencoded({ limit: '50mb', extended: true })); // Aumenta el límite de tamaño del cuerpo a 50 MB
+
 
 
 app.use((req, res, next) => {

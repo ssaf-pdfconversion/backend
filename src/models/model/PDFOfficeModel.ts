@@ -5,20 +5,14 @@ import { base64array } from './base64';
 import { SOAPClient } from '../interfaces/SOAPClient';
 
 
-export async function convertOfficeToPDF(files: string[]): Promise<SOAPASResponse> {
+export async function convertOfficeToPDF(files: string[][]): Promise<SOAPASResponse> {
   try {
-
-    const filesXML = files.map(filePath => {
-      return `<files>${filePath}</files>`;
-    }).join('');
-
-    console.log(filesXML)
 
     const xml = `<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:int="http://interfaces.domain.app.upb.edu.co/">
             <soapenv:Header/>
             <soapenv:Body>
                 <int:getOfficeConversion>
-                    ${filesXML}
+                    <files>${files}</files>
                 </int:getOfficeConversion>
             </soapenv:Body>
             </soapenv:Envelope>`;

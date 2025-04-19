@@ -24,7 +24,7 @@ class PDFController {
         console.log("Si entro al controller de urlConvert");
     
         const result = await convertUrlToPDF(urls);
-        console.log(result);
+        
         if (result.success) {
             res.status(200).json({ 
                 message: 'Archivo convertidos a PDF' ,
