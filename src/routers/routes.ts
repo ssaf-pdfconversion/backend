@@ -10,9 +10,6 @@ router.get('/', (req, res) => {
     res.send('¡Hola desde la ruta principal!');
   });
 
-router.get('/user', (req, res) => {
-    res.send('¡Hola desde la ruta de registro!');
-  });
 
 
 router.post('/login', LoginController.login);
@@ -20,6 +17,7 @@ router.post('/officeConvert',  Authenticate.validate, PDFController.officeConver
 router.post('/urlConvert', PDFController.urlConvert);
 router.post('/total', MetricsController.metricsTotal);
 router.post('/statistics', Authenticate.validate ,MetricsController.getStatistics);
+router.post('/register', RegisterController.registerdos);
 
 
 export default router;

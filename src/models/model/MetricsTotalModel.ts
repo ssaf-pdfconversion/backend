@@ -14,7 +14,7 @@ export async function getTotalConversion(userID: number): Promise<SOAPDResponse>
             </soapenv:Body>
             </soapenv:Envelope>`;
 
-        /*
+        
             const soapClient = new SOAPClient("getTotalConversion");
         
         const { response } = await soaprequest({
@@ -37,12 +37,13 @@ export async function getTotalConversion(userID: number): Promise<SOAPDResponse>
                 }
             });
         });
+        /*
         
-       */
+       
         const response = new SOAPDResponse(true, 'ok', 1500, new Date().toISOString());
         console.log(response);
         return response;
-        
+        */
 
     }
     catch (error){
