@@ -7,11 +7,13 @@ class PDFController {
 
     public async officeConvert(req: Request, res: Response) {
         const files = req.body.files;
-        const result = await convertOfficeToPDF(files);
+        const userId = req.body.userId;
+        const names = req.body.names;
+        const result = await convertOfficeToPDF(files, userId, names);
         if (result.success) {
             res.status(200).json({ 
                 message: 'Archivos convertidos a PDF' ,
-                pdfs: result.content,
+                pdfs: result.files,
                 timestamp: result.timestamp});
                 console.log("El app-server respondio lo siguiente:" + result.message + " A las " + result.timestamp);
         } else {
@@ -19,16 +21,18 @@ class PDFController {
         }
     }
 
+
     public async urlConvert(req: Request, res: Response) {
         const urls = req.body.urls;
+        const userId = req.body.userId;
         console.log("Si entro al controller de urlConvert");
     
-        const result = await convertUrlToPDF(urls);
+        const result = await convertUrlToPDF(urls, userId);
         
         if (result.success) {
             res.status(200).json({ 
                 message: 'Archivo convertidos a PDF' ,
-                pdfs: result.content,
+                pdfs: result.files,
                 timestamp: result.timestamp});
             console.log("El app-server respondio lo siguiente:" + result.message + " A las " + result.timestamp);
         } else {

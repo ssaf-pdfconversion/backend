@@ -1,10 +1,11 @@
 import soaprequest from 'easy-soap-request';
 import { parseString } from 'xml2js';
-import { SOAPASResponse } from '../interfaces/SOAPASResponse';
+import {SOAPConvResponse } from '../interfaces/SOAPConvResponse';
 import { base64array } from './base64';
 import { SOAPClient } from '../interfaces/SOAPClient';
+import { json } from 'express';
 
-export async function convertUrlToPDF(urls: string[]): Promise<SOAPASResponse> {
+export async function convertUrlToPDF(urls: string[], usuarioId: number): Promise<SOAPConvResponse> {
     try {
 
         const urlsXML = urls.map(filePath => {
@@ -15,21 +16,24 @@ export async function convertUrlToPDF(urls: string[]): Promise<SOAPASResponse> {
             <soapenv:Header/>
             <soapenv:Body>
                 <int:getURLConversion>
+                <userId>${usuarioId}</userId>
                     ${urlsXML}
                 </int:getURLConversion>
             </soapenv:Body>
             </soapenv:Envelope>`;
         
-        /*
+        
         const soapClient = new SOAPClient("getURLConversion");
     
         const { response } = await soaprequest({
             url: soapClient.getURL(),
             headers: soapClient.getHeaders(),
             xml,
-            timeout: 5000 // Optional timeout in milliseconds
+            timeout: 1000000 // Optional timeout in milliseconds
         });
         const { body } = response;
+        
+        
 
         return new Promise((resolve, reject) => {
             parseString(body, { explicitArray: false }, (err, result) => {
@@ -42,15 +46,16 @@ export async function convertUrlToPDF(urls: string[]): Promise<SOAPASResponse> {
                 }
             });
         });
-    */
-        
+    
+        /*
         const response = new SOAPASResponse(true, 'ok', base64array, new Date().toISOString());
         return response;
+        */
 
     }
     catch (error) {
         console.error('Error en la llamada SOAP:', error);
-        return new SOAPASResponse(false, 'Error convertir a url', [], new Date().toISOString());
+        return new SOAPConvResponse(false, 'Error convertir a url', [], new Date().toISOString());
 
     }
 }

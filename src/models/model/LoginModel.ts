@@ -30,7 +30,7 @@ export class SOAPClient {
             </soapenv:Envelope>
         `;
 
-        /*
+        
         const { response } = await soaprequest({
             url: this.url,
             headers: this.headers,
@@ -54,11 +54,13 @@ export class SOAPClient {
             }
           });
         });
-        */
+        
+       /*
 
       const token = this.Token(username);
       const response = new SOAPSResponse(true, 'Usuario autenticado', token, new Date().toISOString());
       return response;
+      */
 
     } catch (error) {
       console.error('Error en la llamada SOAP:', error);
