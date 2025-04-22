@@ -29,9 +29,10 @@ class MetricsController {
         if (result.success) {
             res.status(200).json({ 
                 message: 'Métricas obtenidas' ,
-                data: result.content,
+                data: result.stats,
                 timestamp: result.timestamp,});
             console.log("El app-server respondio lo siguiente:" + result.message + " A las " + result.timestamp);
+            console.log(result.content);
         } else {
             res.status(400).json({ message: 'Error al obtener métricas' });
         }

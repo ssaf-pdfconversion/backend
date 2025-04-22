@@ -34,7 +34,6 @@ export async function validate(token: string): Promise<SOAPBResponse> {
                     console.error('Error parsing XML:', err);
                 } else {
                     const hola = result['S:Envelope']['S:Body']['ns2:validateResponse']['return'];
-                    console.log(hola);
                     resolve(hola);
                 }
             });

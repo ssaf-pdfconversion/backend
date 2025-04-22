@@ -36,7 +36,6 @@ export async function getStatistics(userId: number,
             timeout: 5000 // Optional timeout in milliseconds
         });
         const { body} = response;
-        console.log(response);
 
         return new Promise((resolve, reject) => {
             parseString(body, { explicitArray: false }, (err, result) => {
@@ -45,6 +44,7 @@ export async function getStatistics(userId: number,
                     console.log("Error en la llamada SOAP:", err);
                 } else {
                     const resultado = result['S:Envelope']['S:Body']['ns2:getStatisticsResponse']['return'];
+                    console.log(resultado);
                     resolve(resultado);
                 }
             });

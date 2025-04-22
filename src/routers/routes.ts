@@ -14,8 +14,8 @@ router.get('/', (req, res) => {
 
 router.post('/login', LoginController.login);
 router.post('/officeConvert',  Authenticate.validate, PDFController.officeConvert);
-router.post('/urlConvert', PDFController.urlConvert);
-router.post('/total', MetricsController.metricsTotal);
+router.post('/urlConvert',Authenticate.validate, PDFController.urlConvert);
+router.post('/total',Authenticate.validate, MetricsController.metricsTotal);
 router.post('/statistics', Authenticate.validate ,MetricsController.getStatistics);
 router.post('/register', RegisterController.registerdos);
 
