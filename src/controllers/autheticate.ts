@@ -11,8 +11,7 @@ class Authenticate{
             return;
         }
         const result = await validate(header);
-        console.log(result);
-        if (result.success == true) {
+        if (result.success.toString() === "true") {
             next();
         } else {
             res.status(401).json({ message: 'Unauthorized' });
