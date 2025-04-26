@@ -2,7 +2,8 @@ import { SOAPStatsResponse } from '../interfaces/SOAPStatsResponse';
 import { SOAPClient } from '../interfaces/SOAPClient';
 import soaprequest from 'easy-soap-request';
 import { parseString } from 'xml2js';
-import { estadisticas } from './Statistics';
+import { Statistics } from './Statistics';
+
 
 export async function getStatistics(userId: number, 
     startDate: string,
@@ -57,8 +58,9 @@ export async function getStatistics(userId: number,
         
     }
     catch (error){
+        const emptyStats: Statistics = { stat: [] };
         console.error('Error en la llamada SOAP:', error);
-              return new SOAPStatsResponse('false', 'Error a obtener la estadisticas', [], new Date().toISOString());
+              return new SOAPStatsResponse(false, 'Error a obtener la estadisticas', emptyStats, new Date().toISOString());
 
     }
 }
