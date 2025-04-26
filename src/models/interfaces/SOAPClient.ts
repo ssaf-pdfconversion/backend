@@ -12,7 +12,7 @@ export class SOAPClient {
     }
 
     public getURL(): string{
-        return `http://${this.host}:${this.port}/appserver?wsdl`;
+        return `https://${this.host}:${this.port}/appserver?wsdl`;
     }
 
     public getHeaders(): any{

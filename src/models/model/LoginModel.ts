@@ -9,7 +9,7 @@ export class SOAPClient {
   private headers: any;
   
   constructor(host: string = process.env.SOAP_HOST || 'localhost', port: string = process.env.SOAP_PORT || '80') {
-    this.url = `http://${host}:${port}/appserver?wsdl`;
+    this.url = `https://${host}:${port}/appserver?wsdl`;
     this.headers = {
         'Content-Type': 'text/xml;charset=UTF-8',
         'SOAPAction': 'login'
