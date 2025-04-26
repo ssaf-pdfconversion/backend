@@ -10,7 +10,7 @@ class PDFController {
         const userId = req.body.userId;
         const names = req.body.names;
         const result = await convertOfficeToPDF(files, userId, names);
-        if (result.success) {
+        if (result.success.toString() === "true") {
             res.status(200).json({ 
                 message: 'Archivos convertidos a PDF' ,
                 pdfs: result.files,
@@ -29,7 +29,7 @@ class PDFController {
     
         const result = await convertUrlToPDF(urls, userId);
         
-        if (result.success) {
+        if (result.success.toString() === "true") {
             res.status(200).json({ 
                 message: 'Archivo convertidos a PDF' ,
                 pdfs: result.files,

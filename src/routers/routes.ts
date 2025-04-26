@@ -16,7 +16,7 @@ router.post('/login', LoginController.login);
 router.post('/officeConvert',  Authenticate.validate, PDFController.officeConvert);
 router.post('/urlConvert',Authenticate.validate, PDFController.urlConvert);
 router.post('/total',Authenticate.validate, MetricsController.metricsTotal);
-router.post('/statistics', Authenticate.validate ,MetricsController.getStatistics);
+router.post('/statistics', Authenticate.validate, MetricsController.getStatistics);
 router.post('/register', RegisterController.registerdos);
 
 

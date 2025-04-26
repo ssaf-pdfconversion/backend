@@ -10,7 +10,7 @@ class RegisterController {
         console.log('Si entro al regsiter yayyys')
 
         const result = await registerUser(username, password, nombre, apellido, email);
-        if (result.success) {
+        if (result.success.toString() === "true") {
             res.status(200).json({ 
                 message: 'Usuario registrado correctamente', 
                 data: result.content,

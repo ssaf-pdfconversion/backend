@@ -2,6 +2,7 @@ import { SOAPStatsResponse } from '../interfaces/SOAPStatsResponse';
 import { SOAPClient } from '../interfaces/SOAPClient';
 import soaprequest from 'easy-soap-request';
 import { parseString } from 'xml2js';
+import { estadisticas } from './Statistics';
 
 export async function getStatistics(userId: number, 
     startDate: string,
@@ -23,11 +24,8 @@ export async function getStatistics(userId: number,
             </int:getStatistics>
         </soapenv:Body>
         </soapenv:Envelope>`;
-
-        const soapClient = new SOAPClient("getStatistics");
-        console.log(soapClient.getURL());
-        console.log(soapClient.getHeaders());
         
+        const soapClient = new SOAPClient("getStatistics");
         
         const { response } = await soaprequest({
             url: soapClient.getURL(),
@@ -36,6 +34,7 @@ export async function getStatistics(userId: number,
             timeout: 5000 // Optional timeout in milliseconds
         });
         const { body} = response;
+        console.log(response);
 
         return new Promise((resolve, reject) => {
             parseString(body, { explicitArray: false }, (err, result) => {
@@ -44,24 +43,22 @@ export async function getStatistics(userId: number,
                     console.log("Error en la llamada SOAP:", err);
                 } else {
                     const resultado = result['S:Envelope']['S:Body']['ns2:getStatisticsResponse']['return'];
-                    console.log(resultado);
                     resolve(resultado);
                 }
             });
         });
         
         
-        /*
-       
-        const response = new SOAPStatsResponse(true, 'ok', [1,2,3,4], new Date().toISOString());
-        console.log(response);
-        return response;
         
+        /*
+        const response = new SOAPStatsResponse('true', 'ok', [estadisticas], new Date().toISOString());
+        return response;
         */
+        
     }
     catch (error){
         console.error('Error en la llamada SOAP:', error);
-              return new SOAPStatsResponse(false, 'Error a obtener la estadisticas', [], new Date().toISOString());
+              return new SOAPStatsResponse('false', 'Error a obtener la estadisticas', [], new Date().toISOString());
 
     }
 }

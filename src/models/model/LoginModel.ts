@@ -30,6 +30,7 @@ export class SOAPClient {
             </soapenv:Envelope>
         `;
 
+
         
         const { response } = await soaprequest({
             url: this.url,
@@ -55,7 +56,9 @@ export class SOAPClient {
           });
         });
         
-       /*
+      
+       
+        /*
 
       const token = this.Token(username);
       const response = new SOAPSResponse(true, 'Usuario autenticado', token, new Date().toISOString());

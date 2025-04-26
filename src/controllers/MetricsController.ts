@@ -1,6 +1,8 @@
 import { getTotalConversion } from "../models/model/MetricsTotalModel";
 import { getStatistics } from "../models/model/StatisticsModel";
 import { Request, Response } from "express";
+import {mapStatisticsToNumeric} from "../utils/stadistics.mapper";
+import { Statistics } from "../models/model/Statistics";
 
 
 class MetricsController {
@@ -8,7 +10,7 @@ class MetricsController {
     public async metricsTotal(req: Request, res: Response) {
         const userId = req.body.userId;
         const result = await getTotalConversion(userId);
-        if (result.success) {
+        if (result.success.toString() === "true") {
             res.status(200).json({ 
                 message: 'Métricas obtenidas' ,
                 data: result.content,
@@ -24,15 +26,17 @@ class MetricsController {
         const endDate = req.body.endDate;
         const fileTypeId = req.body.fileTypeId;
 
-        console.log("El app-server recibio lo siguiente: " + userId + " " + startDate + " " + endDate + " " + fileTypeId);
         const result = await getStatistics(userId, startDate, endDate, fileTypeId);
-        if (result.success) {
+        
+        if (result.success.toString() === "true") {
+
+            const statistics: Statistics[] = result.stats;
+            const numericStats = statistics.map(stat => mapStatisticsToNumeric(stat));
             res.status(200).json({ 
                 message: 'Métricas obtenidas' ,
-                data: result.stats,
+                data: numericStats,
                 timestamp: result.timestamp,});
             console.log("El app-server respondio lo siguiente:" + result.message + " A las " + result.timestamp);
-            console.log(result.content);
         } else {
             res.status(400).json({ message: 'Error al obtener métricas' });
         }

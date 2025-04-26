@@ -11,7 +11,7 @@ class LoginController {
         const soapClient = new SOAPClient();
         const result = await soapClient.loginUser(username, password);
        
-        if (result.success) {
+        if (result.success.toString() === "true") {
 
             const decoded = jwt.decode(result.content) as {userId: string} | null;
             const userId = decoded ? decoded.userId : null;
