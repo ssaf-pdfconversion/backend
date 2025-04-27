@@ -3,6 +3,7 @@ import { SOAPClient } from '../interfaces/SOAPClient';
 import soaprequest from 'easy-soap-request';
 import { parseString } from 'xml2js';
 import { Statistics } from './Statistics';
+import https from 'https';
 
 
 export async function getStatistics(userId: number, 
@@ -27,12 +28,15 @@ export async function getStatistics(userId: number,
         </soapenv:Envelope>`;
         
         const soapClient = new SOAPClient("getStatistics");
+        const httpsAgent = new https.Agent({
+            rejectUnauthorized: false
+          });
         
         const { response } = await soaprequest({
             url: soapClient.getURL(),
             headers: soapClient.getHeaders(),
             xml,
-            timeout: 5000 // Optional timeout in milliseconds
+            timeout: 5000,// Pass httpsAgent under extraOpts if supported
         });
         const { body} = response;
         console.log(response);

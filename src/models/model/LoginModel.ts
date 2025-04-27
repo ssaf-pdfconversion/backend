@@ -3,11 +3,15 @@ import { SOAPSResponse } from '../interfaces/SOAPSResponse';
 import soaprequest from 'easy-soap-request';
 import { parseString } from 'xml2js';
 import jwt from 'jsonwebtoken';
+import https from 'https';
+
 
 export class SOAPClient {
   private  url: string;
   private headers: any;
   
+  
+
   constructor(host: string = process.env.SOAP_HOST || 'localhost', port: string = process.env.SOAP_PORT || '80') {
     this.url = `https://${host}:${port}/appserver?wsdl`;
     this.headers = {
@@ -30,13 +34,16 @@ export class SOAPClient {
             </soapenv:Envelope>
         `;
 
+       
+
 
         
         const { response } = await soaprequest({
             url: this.url,
             headers: this.headers,
             xml,
-            timeout: 5000 
+            timeout: 5000,
+            
         });
 
        
